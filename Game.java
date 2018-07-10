@@ -1,18 +1,22 @@
 public class Game {
+    private final String FILENAME = "heroes.txt";
     private String gameMode = null;
+    private ViewMode view = null;
 
     public Game(String gameMode){
-        if (gameMode.equals("console"))
+        if (gameMode.equals("console")){
             this.gameMode = "CONSOLE";
-        else if (gameMode.equals("gui"))
+            this.view = new Console();
+        }
+        else if (gameMode.equals("gui")){
             this.gameMode = "GUI";
+            this.view = new GUI();
+        }
         else{
             String report = String.format("ERROR: Wrong mode.\nUSAGE:\n%sjava -jar swing.jar console\n %sOR\n%sjava -jar swing.jar gui", padLeft(" ", 7), padLeft(" ", 19), padLeft(" ", 7));
             System.out.println(report);
             System.exit(0);
-        } 
-        System.out.printf("Hi, I'm %s!!!\n", this.gameMode);
-            
+        }
     }
 
     private static String padLeft(String s, int n) {
