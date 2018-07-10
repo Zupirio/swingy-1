@@ -13,7 +13,8 @@ alt:
 	git push alt master
 
 clean:
+	rm *.class
 
-fclean:
+fclean: clean
 
 re: fclean all
