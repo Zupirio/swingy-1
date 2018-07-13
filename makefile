@@ -4,7 +4,7 @@ maven:
 
 run:
 
-git: origin alt
+git: origin
 
 origin:
 	git push origin master
