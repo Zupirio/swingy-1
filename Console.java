@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -10,8 +9,7 @@ public class Console implements ViewMode {
         System.out.printf("%s MODE\n", this.name);
     }
 
-    public void init(){
-        Scanner sc = null;
+    public void init(Scanner sc){
         int input = -1;
 
         try {
@@ -19,29 +17,25 @@ public class Console implements ViewMode {
             sc = new Scanner(System.in);
             System.out.print("Press 1 to create hero OR Press 2 to select hero: ");
             if (!sc.hasNextInt())
-                throw new InputMismatchException();
+                throw new Exception();
             input = sc.nextInt();
+            sc.nextLine(); // Moving Line
             if ((input < 1) || (2 < input))
-                throw new InputMismatchException();
-        } catch (InputMismatchException e){
+                throw new Exception();
+        } catch (Exception e){
             System.out.println("\nERROR\nInput should be 1 or 2.");
             if (sc != null)
                 sc.close();
             System.exit(1);
         } finally {
-            if (sc != null)
-                sc.close();
-            System.out.println("");
+            if (input == 1)
+                this.createHero(sc);
+            else if (input == 2)
+                this.selectHero(sc);
         }
-
-        if (input == 1)
-            this.createHero();
-        else if (input == 2)
-            this.selectHero();
     }
 
-    public void createHero(){
-        Scanner sc = null;
+    public void createHero(Scanner sc){
         String name = null;
         String heroClass = null;
         int level;
@@ -50,31 +44,35 @@ public class Console implements ViewMode {
         int defence;
         int hitPoints;
 
+        System.out.println("\nGAME\nLets create a hero");
+        System.out.println("\nYOU");
+
         try {
-            System.out.println("GAME\nLets create a hero");
-            System.out.println("\nYOU");
-
-            sc = new Scanner(System.in);
-
             System.out.print("Enter Name (String): ");
             name = sc.nextLine();
-
-            System.out.print("\nEnter Class (String): ");
+            
+            System.out.print("Enter Class (String): ");
             heroClass = sc.nextLine();
             
-            System.out.print("\nEnter Level (Integer between 1 - 5): ");
+            System.out.print("Enter Level (Integer between 1 - 5): ");
             level = sc.nextInt();
+            if ((level < 1) || (5 < level))
+                throw new Exception();
+            sc.nextLine(); // Moving Line
             
-            System.out.print("\nEnter Experience (Integer): ");
+            System.out.print("Enter Experience (Integer): ");
             experience = sc.nextLong();
+            sc.nextLine(); // Moving Line
             
-            System.out.print("\nEnter Attack (Integer): ");
+            System.out.print("Enter Attack (Integer): ");
             attack = sc.nextInt();
+            sc.nextLine(); // Moving Line
             
-            System.out.print("\nEnter Defence (Integer): ");
+            System.out.print("Enter Defence (Integer): ");
             defence = sc.nextInt();
+            sc.nextLine(); // Moving Line
             
-            System.out.print("\nEnter Hit Points (Integer): ");
+            System.out.print("Enter Hit Points (Integer): ");
             hitPoints = sc.nextInt();
 
             this.hero = new Hero(name, heroClass, level, experience, attack, defence, hitPoints);
@@ -83,18 +81,23 @@ public class Console implements ViewMode {
             if (sc != null)
                 sc.close();
             System.exit(1);
-        } finally {
-            System.out.println("\nGAME:\nHero created.");
+        } catch (Exception e){
+            System.out.println("\n\nERROR\nInput should be between 1 - 5");
             if (sc != null)
                 sc.close();
+            System.exit(1);
+        } finally {
+            System.out.println("\nGAME:\nHero created.");
+            System.out.println(this.hero.toString());
         }
     }
 
-    public void selectHero(){
+    public void selectHero(Scanner sc){
 
     }
 
     public void run(){
-        this.init();
+        Scanner sc = new Scanner(System.in);
+        this.init(sc);
     }
 }

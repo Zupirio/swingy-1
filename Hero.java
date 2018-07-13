@@ -20,6 +20,7 @@ public class Hero {
     public String toString(){
         String results = null;
 
+        results = "--- Hero Stats ---\n";
         results += String.format("Name: %s\n", this.name);
         results += String.format("Class: %s\n", this.heroClass);
         results += String.format("Level: %s\n", this.level);
