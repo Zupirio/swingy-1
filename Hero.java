@@ -1,4 +1,4 @@
-public class Hero {
+public class Hero extends Character{
     public static final String FILENAME = "heroes.txt";
     private String name = null;
     private String heroClass = null;
