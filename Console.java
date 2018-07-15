@@ -139,6 +139,8 @@ public class Console implements ViewMode {
 
     public void run(){
         Scanner sc = new Scanner(System.in);
-        this.init(sc);
+        //this.init(sc);
+        Map map = new Map(7);
+        System.out.println(map.toString());
     }
 }

@@ -1,4 +1,11 @@
-all:
+all: console
+
+console:
+	clear
+	javac Driver.java; java Driver console
+gui:
+	clear
+	javac Driver.java; java Driver gui
 
 maven:
 
