@@ -11,7 +11,15 @@ public class Position {
         return this.x;
     }
 
+    public void changeX(int value){
+        this.x += value;
+    }
+
     public int getY(){
         return this.y;
+    }
+
+    public void changeY(int value){
+        this.y += value;
     }
 }

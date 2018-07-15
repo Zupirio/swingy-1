@@ -29,8 +29,6 @@ public class Map {
         this.grid[intialPosition][intialPosition] = 1;
     }
 
-    
-
     private void addVillains(){
         Random random = new Random();
         int numberOfVillains = this.level * 5;
@@ -56,13 +54,58 @@ public class Map {
         this.addVillains();
     }
 
+    public String move(String direction){
+        String status = null;
+        Hero hero = (Hero)this.characters.get(1);
+
+        if (direction.equals("N")){
+            if (hero.getY() == 0){
+                status = "END";
+            } else {
+                this.grid[hero.getX()][hero.getY()] = 0;
+                hero.changePosition(0, -1);
+                this.grid[hero.getX()][hero.getY()] = 1;
+                status = "CONTINUE";
+            }
+        } else if (direction.equals("E")){
+            if (hero.getX() == this.gridSize){
+                status = "END";
+            } else {
+                this.grid[hero.getX()][hero.getY()] = 0;
+                hero.changePosition(1, 0);
+                this.grid[hero.getX()][hero.getY()] = 1;
+                status = "CONTINUE";
+            }
+        } else if (direction.equals("W")){
+            if (hero.getX() == 0){
+                status = "END";
+            } else {
+                this.grid[hero.getX()][hero.getY()] = 0;
+                hero.changePosition(-1, 0);
+                this.grid[hero.getX()][hero.getY()] = 1;
+                status = "CONTINUE";
+            }
+        } else if (direction.equals("S")){
+            if (hero.getY() == this.gridSize){
+                status = "END";
+            } else {
+                this.grid[hero.getX()][hero.getY()] = 0;
+                hero.changePosition(0, 1);
+                this.grid[hero.getX()][hero.getY()] = 1;
+                status = "CONTINUE";
+            }
+        }
+
+        return status;
+    }
+
     public String toString(){
         String map = "";
 
         for (int i = 0; i < gridSize; i++){
             map += "|";
             for (int j = 0; j < gridSize; j++){
-                map += String.format("%d|", this.grid[i][j]);
+                map += String.format("%2d|", this.grid[i][j]);
             }
             map += "\n";
         }

@@ -141,6 +141,18 @@ public class Console implements ViewMode {
         Scanner sc = new Scanner(System.in);
         this.init(sc);
         Map map = new Map(2, this.hero);
+        String move = null;
+        
         System.out.println(map.toString());
+
+        System.out.print("YOU\nEnter your move: ");
+        move = sc.nextLine();
+        System.out.println(move);
+
+
+        System.out.println("\nGAME");
+        System.out.println(map.move(move).toLowerCase());
+        System.out.println(map.toString());
+
     }
 }
