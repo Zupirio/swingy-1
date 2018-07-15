@@ -1,4 +1,5 @@
 public class Hero {
+    public static final String FILENAME = "heroes.txt";
     private String name = null;
     private String heroClass = null;
     private int level;
@@ -17,7 +18,7 @@ public class Hero {
         this.hitPoints = hitPoints;
     }
 
-    public String toString(){
+    public String heroStats(){
         String results = null;
 
         results = "--- Hero Stats ---\n";
@@ -28,6 +29,13 @@ public class Hero {
         results += String.format("Attack: %s\n", this.attack);
         results += String.format("Defence: %s\n", this.defence);
         results += String.format("Hit Points: %s\n", this.hitPoints);
+        return results;
+    }
+
+    public String toString(){
+        String results = null;
+
+        results = String.format("%s,%s,%s,%d,%d,%d,%d", this.name, this.heroClass, this.level, this.experience, this.attack, this.defence, this.hitPoints);
         return results;
     }
 }

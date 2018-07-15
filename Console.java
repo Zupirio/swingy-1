@@ -1,3 +1,5 @@
+//import java.io.BufferedReader;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -19,7 +21,7 @@ public class Console implements ViewMode {
             if (!sc.hasNextInt())
                 throw new Exception();
             input = sc.nextInt();
-            sc.nextLine(); // Moving Line
+            sc.nextLine(); // Moving Cursor
             if ((input < 1) || (2 < input))
                 throw new Exception();
         } catch (Exception e){
@@ -58,19 +60,19 @@ public class Console implements ViewMode {
             level = sc.nextInt();
             if ((level < 1) || (5 < level))
                 throw new Exception();
-            sc.nextLine(); // Moving Line
+            sc.nextLine(); // Moving Cursor
             
             System.out.print("Enter Experience (Integer): ");
             experience = sc.nextLong();
-            sc.nextLine(); // Moving Line
+            sc.nextLine(); // Moving Cursor
             
             System.out.print("Enter Attack (Integer): ");
             attack = sc.nextInt();
-            sc.nextLine(); // Moving Line
+            sc.nextLine(); // Moving Cursor
             
             System.out.print("Enter Defence (Integer): ");
             defence = sc.nextInt();
-            sc.nextLine(); // Moving Line
+            sc.nextLine(); // Moving Cursor
             
             System.out.print("Enter Hit Points (Integer): ");
             hitPoints = sc.nextInt();
@@ -88,12 +90,52 @@ public class Console implements ViewMode {
             System.exit(1);
         } finally {
             System.out.println("\nGAME:\nHero created.");
-            System.out.println(this.hero.toString());
+            System.out.println(this.hero.heroStats());
         }
     }
 
     public void selectHero(Scanner sc){
+        String heroes = null;
+        int heroNumber = -1;
+        String heroChosen = null;
+        
+        System.out.println("\nGAME\nLets select a hero");
+        heroes = Tools.getSavedHeroes(Hero.FILENAME, sc);
+        System.out.println(heroes);
+        try {
+            System.out.println("\nYOU");
+            System.out.print("Press hero number you want to select: ");
+            heroNumber = sc.nextInt();
+            sc.nextLine(); // Moving Cursor
 
+            heroChosen = heroes.split("\n")[heroNumber - 1];
+            heroChosen = heroChosen.replaceFirst("[0-9]* - ", "");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\nERROR\nHero number chosen doesn't exit.");
+            System.exit(0);
+        } catch (InputMismatchException e) {
+            System.out.println("\nERROR\nWe only accept numbers.");
+            System.exit(0);
+        }
+
+        try {
+            String data[] = heroChosen.split(",");
+            String name = data[0];
+            String heroClass = data[1];
+            int level = Integer.parseInt(data[2]);
+            long experience = Long.parseLong(data[3]);
+            int attack = Integer.parseInt(data[4]);
+            int defence = Integer.parseInt(data[5]);
+            int hitPoints = Integer.parseInt(data[6]);
+            this.hero = new Hero(name, heroClass, level, experience, attack, defence, hitPoints);
+
+            System.out.println("\nGAME\nHero Selected");
+            System.out.println(this.hero.heroStats());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\nERROR\nDatafile corrupt.");
+            System.exit(0);
+        }
+        
     }
 
     public void run(){
