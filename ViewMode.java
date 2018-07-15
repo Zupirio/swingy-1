@@ -1,9 +1,7 @@
-import java.util.Scanner;
-
 public interface ViewMode {
-    public void init(Scanner sc);
-    public void createHero(Scanner sc);
-    public void selectHero(Scanner sc);
+    // public void init(Object sc);
+    // public void createHero(Object sc);
+    // public void selectHero(Object sc);
     public void run();
     // public void createMap();
     // public void initialPosition();
