@@ -32,9 +32,9 @@ public class Hero extends Character{
         return results;
     }
 
-    public void changePosition(int x, int y){
-        this.position.changeX(x);
-        this.position.changeY(y);
+    public void changePosition(int row, int column){
+        this.position.changeRow(row);
+        this.position.changeColum(column);
     }
 
     public String toString(){

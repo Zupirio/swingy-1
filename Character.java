@@ -1,15 +1,15 @@
 public class Character {
     protected Position position;
 
-    public int getX(){
-        return this.position.getX();
+    public int getRow(){
+        return this.position.getRow();
     }
 
-    public int getY(){
-        return this.position.getY();
+    public int getColumn(){
+        return this.position.getColumn();
     }
 
-    public void setPosition(int x, int y){
-        this.position = new Position(x, y);
+    public void setPosition(int row, int column){
+        this.position = new Position(row, column);
     }
 }

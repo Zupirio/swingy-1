@@ -1,25 +1,25 @@
 public class Position {
-    private int x;
-    private int y;
+    private int row;
+    private int column;
     
-    public Position(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Position(int row, int column){
+        this.row = row;
+        this.column = column;
     }
 
-    public int getX(){
-        return this.x;
+    public int getRow(){
+        return this.row;
     }
 
-    public void changeX(int value){
-        this.x += value;
+    public void changeRow(int value){
+        this.row += value;
     }
 
-    public int getY(){
-        return this.y;
+    public int getColumn(){
+        return this.column;
     }
 
-    public void changeY(int value){
-        this.y += value;
+    public void changeColum(int value){
+        this.column += value;
     }
 }

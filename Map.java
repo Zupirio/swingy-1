@@ -36,16 +36,15 @@ public class Map {
         for (int i = 2; i <= totalCharacters; i++){
             Character villain = new Villain();
             while (true){
-                int x = random.nextInt(this.gridSize);
-                int y = random.nextInt(this.gridSize);
-                if (this.grid[x][y] == 0){
-                    villain.setPosition(x, y);
-                    this.grid[x][y] = ++Map.numberOfCharacters;
+                int row = random.nextInt(this.gridSize);
+                int column = random.nextInt(this.gridSize);
+                if (this.grid[row][column] == 0){
+                    villain.setPosition(row, column);
+                    this.grid[row][column] = ++Map.numberOfCharacters;
                     break;
                 }
             }
             this.characters.put(Map.numberOfCharacters, villain);
-            
         }
     }
 
@@ -59,39 +58,39 @@ public class Map {
         Hero hero = (Hero)this.characters.get(1);
 
         if (direction.equals("N")){
-            if (hero.getY() == 0){
+            if (hero.getRow() == 0){
                 status = "END";
             } else {
-                this.grid[hero.getX()][hero.getY()] = 0;
-                hero.changePosition(0, -1);
-                this.grid[hero.getX()][hero.getY()] = 1;
+                this.grid[hero.getRow()][hero.getColumn()] = 0;
+                hero.changePosition(-1, 0);
+                this.grid[hero.getRow()][hero.getColumn()] = 1;
                 status = "CONTINUE";
             }
         } else if (direction.equals("E")){
-            if (hero.getX() == this.gridSize){
+            if (hero.getColumn() == this.gridSize){
                 status = "END";
             } else {
-                this.grid[hero.getX()][hero.getY()] = 0;
-                hero.changePosition(1, 0);
-                this.grid[hero.getX()][hero.getY()] = 1;
+                this.grid[hero.getRow()][hero.getColumn()] = 0;
+                hero.changePosition(0, 1);
+                this.grid[hero.getRow()][hero.getColumn()] = 1;
                 status = "CONTINUE";
             }
         } else if (direction.equals("W")){
-            if (hero.getX() == 0){
+            if (hero.getColumn() == 0){
                 status = "END";
             } else {
-                this.grid[hero.getX()][hero.getY()] = 0;
-                hero.changePosition(-1, 0);
-                this.grid[hero.getX()][hero.getY()] = 1;
+                this.grid[hero.getRow()][hero.getColumn()] = 0;
+                hero.changePosition(0, -1);
+                this.grid[hero.getRow()][hero.getColumn()] = 1;
                 status = "CONTINUE";
             }
         } else if (direction.equals("S")){
-            if (hero.getY() == this.gridSize){
+            if (hero.getRow() == this.gridSize){
                 status = "END";
             } else {
-                this.grid[hero.getX()][hero.getY()] = 0;
-                hero.changePosition(0, 1);
-                this.grid[hero.getX()][hero.getY()] = 1;
+                this.grid[hero.getRow()][hero.getColumn()] = 0;
+                hero.changePosition(1, 0);
+                this.grid[hero.getRow()][hero.getColumn()] = 1;
                 status = "CONTINUE";
             }
         }
