@@ -145,14 +145,13 @@ public class Console implements ViewMode {
         
         System.out.println(map.toString());
 
-        System.out.print("YOU\nEnter your move: ");
-        move = sc.nextLine();
-        System.out.println(move);
-
-
-        System.out.println("\nGAME");
-        System.out.println(map.move(move).toLowerCase());
-        System.out.println(map.toString());
-
+        while (true){
+            System.out.print("YOU\nEnter your move: ");
+            move = map.move(sc.nextLine());
+            if (move.equals("END"))
+                break;
+            System.out.println("\nGAME");
+            System.out.println(map.toString());
+        }
     }
 }

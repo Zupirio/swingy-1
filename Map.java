@@ -67,7 +67,7 @@ public class Map {
                 status = "CONTINUE";
             }
         } else if (direction.equals("E")){
-            if (hero.getColumn() == this.gridSize){
+            if (hero.getColumn() == (this.gridSize - 1)){
                 status = "END";
             } else {
                 this.grid[hero.getRow()][hero.getColumn()] = 0;
@@ -85,7 +85,7 @@ public class Map {
                 status = "CONTINUE";
             }
         } else if (direction.equals("S")){
-            if (hero.getRow() == this.gridSize){
+            if (hero.getRow() == (this.gridSize - 1)){
                 status = "END";
             } else {
                 this.grid[hero.getRow()][hero.getColumn()] = 0;
