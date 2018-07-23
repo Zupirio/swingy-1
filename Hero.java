@@ -1,5 +1,6 @@
 public class Hero extends Character{
     public static final String FILENAME = "heroes.txt";
+    private Position previousPosition = null;
     private String name = null;
     private String heroClass = null;
     private int level;
@@ -32,7 +33,26 @@ public class Hero extends Character{
         return results;
     }
 
+    public void makePreviousPositionNull(){
+        this.previousPosition = null;
+    }
+
+    public void setPreviousPosition(int row, int column){
+        if (this.previousPosition == null)
+            this.previousPosition = new Position(row, column);
+        else {
+            this.previousPosition.setRow(row);
+            this.previousPosition.setColumn(column);
+        }
+    }
+
+    public Position getPreviousPosition(){
+        return this.previousPosition;
+    }
+
     public void changePosition(int row, int column){
+        this.setPreviousPosition(this.getRow(), this.getColumn());
+
         this.position.changeRow(row);
         this.position.changeColum(column);
     }

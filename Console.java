@@ -99,7 +99,7 @@ public class Console implements ViewMode {
         String heroChosen = null;
         
         System.out.println("\nGAME\nLets select a hero");
-        heroes = Tools.getSavedHeroes(Hero.FILENAME, sc);
+        heroes = Tools.getSavedHeroes(Hero.FILENAME);
         System.out.println(heroes);
         try {
             System.out.println("\nYOU");
@@ -147,23 +147,25 @@ public class Console implements ViewMode {
 
         while (true){
             if (map.metVillain()){
-                System.out.printf("GAME\nYou met the following villain(s)\n");
-                String villainsPositions[] = map.getMetVillainsPosition();
-                System.out.println(villainsPositions[0]);
-                for (int i = 0; i < villainsPositions.length; i++){
-                    String[] position = villainsPositions[i].split(",");
-                    System.out.printf("\tVillain at [%s:%s]\n", position[0], position[1]);
+                System.out.printf("You met the following villain(s)\n");
+                System.out.println(map.getMetVillainsPositionString());
+
+                System.out.print("YOU\nFight (F) OR Run (R): ");
+
+                String fightOrRun = sc.nextLine();
+                if (fightOrRun.equals("R")){
+                    fightOrRun = map.meetOutcomes();
                 }
 
-                System.out.print("\nYOU\nFight (F) OR Run (R): ");
-                move = map.move(sc.nextLine());
+
+                //move = map.move(sc.nextLine());
             } else {
-                System.out.print("YOU\nEnter your move (N - Up, E - Right, W - West & S - Down): ");
+                System.out.print("YOU\nEnter your move (N - Up, E - Right, W - Left & S - Down): ");
                 move = map.move(sc.nextLine());
             }
 
-            if (move.equals("END"))
-                break;
+            // if (move.equals("END"))
+            //     break;
             System.out.println("\nGAME");
             System.out.println(map.toString());
         }

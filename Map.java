@@ -8,6 +8,7 @@ public class Map {
     private HashMap<Integer, Character> characters; // HERO & VILLAINS
     private static int numberOfCharacters = 0;
     private int heroSymbol;
+    private final String[] meetOutcomes = {"RUN", "FIGHT"};
 
     public Map(int level, Character hero) {
         this.level = level;
@@ -85,6 +86,21 @@ public class Map {
         return villainsPositions.split("\n");
     }
 
+    public String getMetVillainsPositionString(){
+        String results = null;
+        String villainsPositions[] = this.getMetVillainsPosition();
+
+        for (int i = 0; i < villainsPositions.length; i++){
+            String[] position = villainsPositions[i].split(",");
+            if (results == null)
+                results = String.format("\tVillain at [%s:%s]\n", position[0], position[1]);
+            else
+                results += String.format("\tVillain at [%s:%s]\n", position[0], position[1]);
+        }
+
+        return results;
+    }
+
     public Boolean metVillain(){
         Boolean status = false;
         Hero hero = (Hero)this.characters.get(this.heroSymbol);
@@ -108,6 +124,32 @@ public class Map {
             status = true;
 
         return status;
+    }
+
+    public String meetOutcomes(){
+        String results = null;
+        Hero hero = (Hero)this.characters.get(this.heroSymbol);
+        int row = hero.getRow();
+        int column = hero.getColumn();
+        int prow = -1;
+        int pcolumn = -1;
+        
+        if (hero.getPreviousPosition() == null){
+            results = "FIGHT";
+        } else {
+            results = this.meetOutcomes[new Random().nextInt(2)];
+            if (results.equals("RUN")){
+                prow = hero.getPreviousPosition().getRow();
+                pcolumn = hero.getPreviousPosition().getColumn();
+                
+                this.grid[row][column] = 0;
+                hero.setPosition(prow, pcolumn);
+                hero.makePreviousPositionNull();
+                this.grid[prow][pcolumn] = 1;
+            }
+        }
+
+        return results;
     }
 
     private String navigation(String direction){

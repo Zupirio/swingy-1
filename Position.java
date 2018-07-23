@@ -7,12 +7,20 @@ public class Position {
         this.column = column;
     }
 
+    public void setRow(int row){
+        this.row = row;
+    }
+
     public int getRow(){
         return this.row;
     }
 
     public void changeRow(int value){
         this.row += value;
+    }
+
+    public void setColumn(int column){
+        this.column = column;
     }
 
     public int getColumn(){

@@ -9,7 +9,7 @@ public class Tools{
         return String.format("%" + n + "s", s);  
     }
 
-    public static String getSavedHeroes(String filename, Scanner sc){
+    public static String getSavedHeroes(String filename){
         FileReader fr = null;
         BufferedReader br = null;
         String line = null;

@@ -10,6 +10,11 @@ public class Character {
     }
 
     public void setPosition(int row, int column){
-        this.position = new Position(row, column);
+        if (this.position == null)
+            this.position = new Position(row, column);
+        else{
+            this.position.setRow(row);
+            this.position.setColumn(column);
+        }
     }
 }
