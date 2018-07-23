@@ -11,7 +11,7 @@ maven:
 
 run:
 
-git: origin
+git: origin alt
 
 origin:
 	git push origin master
