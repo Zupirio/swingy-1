@@ -146,8 +146,22 @@ public class Console implements ViewMode {
         System.out.println(map.toString());
 
         while (true){
-            System.out.print("YOU\nEnter your move: ");
-            move = map.move(sc.nextLine());
+            if (map.metVillain()){
+                System.out.printf("GAME\nYou met the following villain(s)\n");
+                String villainsPositions[] = map.getMetVillainsPosition();
+                System.out.println(villainsPositions[0]);
+                for (int i = 0; i < villainsPositions.length; i++){
+                    String[] position = villainsPositions[i].split(",");
+                    System.out.printf("\tVillain at [%s:%s]\n", position[0], position[1]);
+                }
+
+                System.out.print("\nYOU\nFight (F) OR Run (R): ");
+                move = map.move(sc.nextLine());
+            } else {
+                System.out.print("YOU\nEnter your move (N - Up, E - Right, W - West & S - Down): ");
+                move = map.move(sc.nextLine());
+            }
+
             if (move.equals("END"))
                 break;
             System.out.println("\nGAME");
