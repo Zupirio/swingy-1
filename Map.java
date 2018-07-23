@@ -108,25 +108,26 @@ public class Map {
         int column = hero.getColumn();
         
         // North
-        if (this.grid[row - 1][column] > 0)
+        if (((row - 1) >= 0) && (this.grid[row - 1][column] > 0))
+            status = true;
+        // South
+        else if (((row + 1) < this.gridSize) && (this.grid[row + 1][column] > 0))
             status = true;
 
         // East
-        else if (this.grid[row][column + 1] > 0)
+        else if (((column + 1) < this.gridSize) && (this.grid[row][column + 1] > 0))
             status = true;
 
         // West
-        else if (this.grid[row][column - 1] > 0)
+        else if (((column - 1) >= 0) && (this.grid[row][column - 1] > 0))
             status = true;
 
-        // South
-        else if (this.grid[row + 1][column] > 0)
-            status = true;
+        
 
         return status;
     }
 
-    public String meetOutcomes(){
+    public String meetOutcome(){
         String results = null;
         Hero hero = (Hero)this.characters.get(this.heroSymbol);
         int row = hero.getRow();

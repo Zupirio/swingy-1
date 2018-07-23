@@ -154,18 +154,18 @@ public class Console implements ViewMode {
 
                 String fightOrRun = sc.nextLine();
                 if (fightOrRun.equals("R")){
-                    fightOrRun = map.meetOutcomes();
+                    fightOrRun = map.meetOutcome();
                 }
 
-
-                //move = map.move(sc.nextLine());
+                if (fightOrRun.charAt(0) == 'F'){
+                    System.out.println("Lets fight");
+                }
             } else {
                 System.out.print("YOU\nEnter your move (N - Up, E - Right, W - Left & S - Down): ");
                 move = map.move(sc.nextLine());
+                if (move.equals("END"))
+                    break;
             }
-
-            // if (move.equals("END"))
-            //     break;
             System.out.println("\nGAME");
             System.out.println(map.toString());
         }
