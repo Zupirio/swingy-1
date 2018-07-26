@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Random;
+
 
 public class Map {
     private int level;
@@ -35,7 +37,7 @@ public class Map {
         int numberOfVillains = this.level * 5;
         int totalCharacters = 1 + numberOfVillains;
         for (int i = 2; i <= totalCharacters; i++){
-            Character villain = new Villain();
+            Character villain = new Villain(this.level);
             while (true){
                 int row = random.nextInt(this.gridSize);
                 int column = random.nextInt(this.gridSize);
@@ -61,27 +63,24 @@ public class Map {
         int column = hero.getColumn();
 
         if (this.grid[row - 1][column] > 0){
-            if (villainsPositions == null)
-                villainsPositions = row + "," + column;
-            else
-                villainsPositions += row + "," + column;
+            villainsPositions = (row - 1) + "," + column;
         } else if (this.grid[row][column + 1] > 0){
             if (villainsPositions == null)
-                villainsPositions = row + "," + column;
+                villainsPositions = row + "," + (column + 1);
             else
-                villainsPositions += "\n" + row + "," + column;
+                villainsPositions += "\n" + row + "," + (column + 1);
         }
         else if (this.grid[row][column - 1] > 0){
             if (villainsPositions == null)
-                villainsPositions = row + "," + column;
+                villainsPositions = row + "," + (column - 1);
             else
-                villainsPositions += "\n" + row + "," + column;
+                villainsPositions += "\n" + row + "," + (column - 1);
         }
         else if (this.grid[row + 1][column] > 0){
             if (villainsPositions == null)
-                villainsPositions = row + "," + column;
+                villainsPositions = (row + 1) + "," + column;
             else
-                villainsPositions += "\n" + row + "," + column;
+                villainsPositions += "\n" + (row + 1) + "," + column;
         }
         return villainsPositions.split("\n");
     }
@@ -151,6 +150,81 @@ public class Map {
         }
 
         return results;
+    }
+
+    private String matchStatus(int hero, int villain){
+        if (hero > villain){
+            return "WIN";
+        } else if (hero == villain){
+            String[] results = {"WIN", "LOSS"};
+            return results[new Random().nextInt(results.length)];
+        } else {
+            return "LOSS";
+        }
+    }
+
+    public String fight(){
+        String[] villains = this.getMetVillainsPosition();
+        Hero hero = (Hero)this.characters.get(this.heroSymbol);
+        Villain currentVillain = null;
+        int totalWeapon = 0;
+        int totalArmor = 0;
+        int totalHelm = 0;
+        String[] attackOrDefend = {"ATTACK", "DEFEND"};
+        Random random = new Random();
+        String heroMode = attackOrDefend[random.nextInt(attackOrDefend.length)];
+        String fightStatus = null;
+        HashMap<Integer, Position> villainsSymbols = new HashMap<>();
+
+        for (int i=0; i < villains.length; i++){
+            String[] position = villains[i].split(",");
+            int row = Integer.parseInt(position[0]);
+            int column = Integer.parseInt(position[1]);
+            int villainSymbol = this.grid[row][column];
+            villainsSymbols.put(villainSymbol, new Position(row, column));
+            currentVillain = (Villain)this.characters.get(villainSymbol);
+
+            totalWeapon += currentVillain.getWeaponValue();
+            totalArmor += currentVillain.getArmorValue();
+            totalHelm += currentVillain.getHelmValue();
+        }
+
+        if (heroMode.equals("ATTACK")){
+            int heroAttack = hero.getAttackValue() * (hero.getHitPoints() / villains.length);
+            int villainsDefence = totalHelm + totalArmor;
+            fightStatus = this.matchStatus(heroAttack, villainsDefence);
+        } else {
+            int heroDefence = hero.getDefenceValue() * (hero.getHitPoints() / villains.length);
+            int villainsAttack = totalWeapon + totalArmor;
+            fightStatus = this.matchStatus(heroDefence, villainsAttack);
+        }
+
+        if (fightStatus.equals("WIN")){
+            int weapon = totalWeapon / villains.length;
+            int armor = totalArmor / villains.length;
+            int helm = totalHelm / villains.length;
+            hero.takeArtifacts(weapon, armor, helm);
+
+            Set<Integer> keys = villainsSymbols.keySet();
+            //Integer[] array = keys.toArray(new Integer[keys.size()]);
+
+            int[] keysArray = new int[keys.size()];
+            int index = 0;
+            for(Integer element : keys) { 
+                keysArray[index++] = element.intValue();
+            }
+
+            for (int i=0; i < keysArray .length; i++){
+                int currentSymbol = keysArray[i];
+                this.characters.remove(currentSymbol);
+                Position p = (Position)villainsSymbols.get(currentSymbol);
+                //Villain v = (Villain)villainsSymbols.get(currentSymbol);
+
+                this.grid[p.getRow()][p.getColumn()] = 0;
+            }
+        }
+
+        return fightStatus;
     }
 
     private String navigation(String direction){

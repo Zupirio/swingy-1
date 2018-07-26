@@ -158,13 +158,20 @@ public class Console implements ViewMode {
                 }
 
                 if (fightOrRun.charAt(0) == 'F'){
-                    System.out.println("Lets fight");
+                    System.out.println("\nGAME\nLets fight");
+                    String fightResults = map.fight();
+                    System.out.println("\tYOU " + fightResults);
+                    if (fightResults.equals("LOSS")){
+                        break;
+                    }
                 }
             } else {
                 System.out.print("YOU\nEnter your move (N - Up, E - Right, W - Left & S - Down): ");
                 move = map.move(sc.nextLine());
-                if (move.equals("END"))
+                if (move.equals("END")){
+                    System.out.println("\nGAME\nGame over. You survived.");
                     break;
+                }   
             }
             System.out.println("\nGAME");
             System.out.println(map.toString());

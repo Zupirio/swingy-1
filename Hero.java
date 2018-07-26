@@ -33,6 +33,24 @@ public class Hero extends Character{
         return results;
     }
 
+    public void takeArtifacts(int weapon, int armor, int helm){
+        this.attack += weapon;
+        this.defence += armor;
+        this.hitPoints += helm;
+    }
+
+    public int getAttackValue(){
+        return this.attack;
+    }
+
+    public int getDefenceValue(){
+        return this.defence;
+    }
+
+    public int getHitPoints(){
+        return this.hitPoints;
+    }
+
     public void makePreviousPositionNull(){
         this.previousPosition = null;
     }
