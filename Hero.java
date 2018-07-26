@@ -51,6 +51,10 @@ public class Hero extends Character{
         return this.hitPoints;
     }
 
+    public int getLevel(){
+        return this.level;
+    }
+
     public void makePreviousPositionNull(){
         this.previousPosition = null;
     }

@@ -140,7 +140,7 @@ public class Console implements ViewMode {
     public void run(){
         Scanner sc = new Scanner(System.in);
         this.init(sc);
-        Map map = new Map(2, this.hero);
+        Map map = new Map(this.hero.getLevel(), this.hero);
         String move = null;
         
         System.out.println(map.toString());
@@ -164,6 +164,7 @@ public class Console implements ViewMode {
                     if (fightResults.equals("LOSS")){
                         break;
                     }
+                    System.out.println(this.hero.heroStats());
                 }
             } else {
                 System.out.print("YOU\nEnter your move (N - Up, E - Right, W - Left & S - Down): ");
