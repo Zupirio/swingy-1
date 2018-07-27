@@ -1,15 +1,14 @@
-all: console
+all: maven
 
-console:
-	clear
-	javac Driver.java; java Driver console
-gui:
-	clear
-	javac Driver.java; java Driver gui
+console: maven
+	java -jar target/swingy-1.0-SNAPSHOT.jar console
+	
+gui: maven
+	java -jar target/swingy-1.0-SNAPSHOT.jar console
 
 maven:
-
-run:
+	mvn compile
+	mvn package
 
 git: origin alt
 
@@ -20,8 +19,8 @@ alt:
 	git push alt master
 
 clean:
-	rm *.class
 
 fclean: clean
+	rm -Rf target/*
 
 re: fclean all

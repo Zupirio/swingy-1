@@ -1,3 +1,5 @@
+package com.nmajozi.swingy.view;
+
 public interface ViewMode {
     // public void init(Object sc);
     // public void createHero(Object sc);

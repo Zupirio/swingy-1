@@ -1,3 +1,7 @@
+package com.nmajozi.swingy;
+
+import com.nmajozi.swingy.controller.Game;
+
 public class Driver {
     public static void main(String[] args) {
         if (args.length != 1){

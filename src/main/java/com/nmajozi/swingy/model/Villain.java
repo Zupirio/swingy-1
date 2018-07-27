@@ -1,3 +1,5 @@
+package com.nmajozi.swingy.model;
+
 import java.util.Random;
 
 public class Villain extends Character{

@@ -1,3 +1,10 @@
+package com.nmajozi.swingy.controller;
+
+import com.nmajozi.swingy.view.ViewMode;
+import com.nmajozi.swingy.view.Console;
+import com.nmajozi.swingy.view.GUI;
+import com.nmajozi.swingy.utils.Tools;
+
 public class Game {
     private final String FILENAME = "heroes.txt";
     private String gameMode = null;
@@ -12,7 +19,7 @@ public class Game {
         }
         else if (gameMode.equals("gui")){
             this.gameMode = "GUI";
-            //this.view = new GUI();
+            this.view = new GUI();
         }
         else{
             String report = String.format("\nERROR\nWrong mode.\nUSAGE:\n%sjava -jar swing.jar console\n %sOR\n%sjava -jar swing.jar gui", Tools.padLeft(" ", 7), Tools.padLeft(" ", 19), Tools.padLeft(" ", 7));

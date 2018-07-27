@@ -1,3 +1,8 @@
+package com.nmajozi.swingy.view;
+
+import com.nmajozi.swingy.model.Hero;
+import com.nmajozi.swingy.utils.Tools;
+import com.nmajozi.swingy.controller.Map;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;

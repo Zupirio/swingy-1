@@ -1,3 +1,5 @@
+package com.nmajozi.swingy.model;
+
 public class Position {
     private int row;
     private int column;

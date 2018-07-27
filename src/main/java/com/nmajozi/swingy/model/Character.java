@@ -1,3 +1,5 @@
+package com.nmajozi.swingy.model;
+
 public class Character {
     protected Position position;
 

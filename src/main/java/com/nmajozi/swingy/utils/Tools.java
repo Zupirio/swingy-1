@@ -1,4 +1,5 @@
-import java.util.Scanner;
+package com.nmajozi.swingy.utils;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

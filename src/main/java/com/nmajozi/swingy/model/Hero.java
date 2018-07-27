@@ -1,3 +1,5 @@
+package com.nmajozi.swingy.model;
+
 public class Hero extends Character{
     public static final String FILENAME = "heroes.txt";
     private Position previousPosition = null;

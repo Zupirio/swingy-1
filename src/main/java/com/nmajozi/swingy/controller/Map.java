@@ -1,3 +1,9 @@
+package com.nmajozi.swingy.controller;
+
+import com.nmajozi.swingy.model.Character;
+import com.nmajozi.swingy.model.Hero;
+import com.nmajozi.swingy.model.Villain;
+import com.nmajozi.swingy.model.Position;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Random;
