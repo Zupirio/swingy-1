@@ -7,8 +7,7 @@ gui: maven
 	java -jar target/swingy-1.0-SNAPSHOT.jar console
 
 maven:
-	mvn compile
-	mvn package
+	mvn clean package
 
 git: origin alt
 
@@ -21,6 +20,6 @@ alt:
 clean:
 
 fclean: clean
-	rm -Rf target/*
+	mvn clean
 
 re: fclean all
