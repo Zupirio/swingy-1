@@ -20,6 +20,7 @@ public class Game {
         else if (gameMode.equals("gui")){
             this.gameMode = "GUI";
             this.view = new GUI();
+            this.view.run();
         }
         else{
             String report = String.format("\nERROR\nWrong mode.\nUSAGE:\n%sjava -jar swing.jar console\n %sOR\n%sjava -jar swing.jar gui", Tools.padLeft(" ", 7), Tools.padLeft(" ", 19), Tools.padLeft(" ", 7));
