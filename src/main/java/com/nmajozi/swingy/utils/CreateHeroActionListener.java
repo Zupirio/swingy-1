@@ -1,6 +1,7 @@
 package com.nmajozi.swingy.utils;
 
 import com.nmajozi.swingy.model.Hero;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener; //Interface
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 public class CreateHeroActionListener implements ActionListener {
+    private JFrame createHeroWindow;
     private Hero heroRef;
     private JTextField nameInput;
     private JTextField classInput;
@@ -17,7 +19,8 @@ public class CreateHeroActionListener implements ActionListener {
     private JComboBox defenceInput;
     private JComboBox hitPointsInput;
 
-    public CreateHeroActionListener(Hero hero, JTextField nameInput, JTextField classInput, JComboBox levelInput, JComboBox experienceInput, JComboBox attackInput, JComboBox defenceInput, JComboBox hitPointsInput){
+    public CreateHeroActionListener(JFrame createHeroWindow, Hero hero, JTextField nameInput, JTextField classInput, JComboBox levelInput, JComboBox experienceInput, JComboBox attackInput, JComboBox defenceInput, JComboBox hitPointsInput){
+        this.createHeroWindow = createHeroWindow;
         this.heroRef = hero;
         this.nameInput = nameInput;
         this.classInput = classInput;
@@ -41,6 +44,8 @@ public class CreateHeroActionListener implements ActionListener {
             int defenceData  = Integer.parseInt(String.valueOf(this.defenceInput.getSelectedItem()));
             int hitPointsData  = Integer.parseInt(String.valueOf(this.hitPointsInput.getSelectedItem()));
             this.heroRef = new Hero(nameData, classData, levelData, experienceData, attackData, defenceData, hitPointsData);
+            JOptionPane.showMessageDialog(null, "Hero Created");
+            this.createHeroWindow.dispose();
         }
     }
 }

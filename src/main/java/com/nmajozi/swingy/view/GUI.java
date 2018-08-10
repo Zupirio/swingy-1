@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.util.Vector;
 import java.awt.event.ActionListener; //Interface
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
@@ -67,7 +69,7 @@ public class GUI implements ViewMode {
         GUI.createHeroWindow.setLocationRelativeTo(null);
         GUI.createHeroWindow.setVisible(true);
 
-        // Labels & Inputs
+        // Components
         JLabel nameLabel = new JLabel("Enter Name");
         JTextField nameInput = new JTextField(20);
         JLabel classLabel = new JLabel("Enter Class");
@@ -90,7 +92,7 @@ public class GUI implements ViewMode {
 
         // Buttons & Events
         JButton createHeroButton = new JButton("Create Hero");
-        createHeroButton.addActionListener(new CreateHeroActionListener(GUI.hero, nameInput, classInput, levelInput, experienceInput, attackInput,defenceInput, hitPointsInput));
+        createHeroButton.addActionListener(new CreateHeroActionListener(GUI.createHeroWindow, GUI.hero, nameInput, classInput, levelInput, experienceInput, attackInput,defenceInput, hitPointsInput));
          
          // Layout
         JPanel mainPanel = new JPanel();
@@ -135,7 +137,37 @@ public class GUI implements ViewMode {
     }
 
     public static void selectHero(){
+        // Data
+        String[] heroesTemp = Tools.listOfHeroes(Tools.getSavedHeroes(Hero.FILENAME));
+        int len = heroesTemp.length;
 
+        // Window
+        GUI.selectHeroWindow = new JFrame("SELECT HERO");
+        GUI.selectHeroWindow.setSize(500, 120);
+        GUI.selectHeroWindow.setLocationRelativeTo(null);
+        GUI.selectHeroWindow.setVisible(true);
+
+        // Components
+        JComboBox heroesOptions = new JComboBox(heroesTemp);
+  
+
+        // Buttons & Events
+        JButton selectHeroButton = new JButton("Select Hero");
+        selectHeroButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                GUI.selectHeroWindow.dispose();
+            }
+        });
+
+        // Layout
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.add(heroesOptions, BorderLayout.NORTH);
+        mainPanel.add(selectHeroButton, BorderLayout.SOUTH);
+
+        GUI.selectHeroWindow.add(mainPanel);
+        GUI.selectHeroWindow.pack();
     }
 
     public void run(){

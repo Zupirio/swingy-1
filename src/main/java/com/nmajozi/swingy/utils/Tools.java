@@ -37,4 +37,8 @@ public class Tools{
         }
         return results;
     }
+
+    public static String[] listOfHeroes(String heroesString){
+        return heroesString.split("\n");
+    }
 }
