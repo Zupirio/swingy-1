@@ -27,6 +27,7 @@ public class GUI implements ViewMode {
     private static JFrame introWindow;
     private static JFrame createHeroWindow;
     private static JFrame selectHeroWindow;
+    private static JFrame gameWindow;
 
     public GUI(){}
 
@@ -164,6 +165,47 @@ public class GUI implements ViewMode {
 
         GUI.selectHeroWindow.add(mainPanel);
         GUI.selectHeroWindow.pack();
+    }
+
+    public static void game(){
+        Map map = new Map(GUI.hero.getLevel(), GUI.hero);
+        String move = null;
+
+        
+
+        // Window
+        GUI.gameWindow = new JFrame("SWINGY");
+        GUI.gameWindow.setSize(1200, 900);
+        GUI.gameWindow.setLocationRelativeTo(null);
+        GUI.gameWindow.setVisible(true);
+
+        // Components
+        JLabel displayScreen = new JLabel();
+        //JTextField displayScreen = new JTextField();
+        displayScreen.setText(map.toString());
+
+        // Buttons & Events
+        JButton upButton = new JButton("UP");
+        JButton downButton = new JButton("DOWN");
+        JButton leftButton = new JButton("LEFT");
+        JButton rightButton = new JButton("RIGHT");
+
+        // Layout
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(leftButton);
+        buttonsPanel.add(upButton);
+        buttonsPanel.add(downButton);
+        buttonsPanel.add(rightButton);
+
+        
+        mainPanel.add(displayScreen, BorderLayout.NORTH);
+        mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+        GUI.gameWindow.add(mainPanel);
+        GUI.gameWindow.pack();
     }
 
     public void run(){

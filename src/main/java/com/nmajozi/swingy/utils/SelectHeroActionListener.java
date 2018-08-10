@@ -1,6 +1,7 @@
 package com.nmajozi.swingy.utils;
 
 import com.nmajozi.swingy.model.Hero;
+import com.nmajozi.swingy.view.GUI;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener; //Interface
@@ -34,9 +35,9 @@ public class SelectHeroActionListener implements ActionListener {
         int defenceData  = Integer.parseInt(heroChosenItems[5]);
         int hitPointsData  = Integer.parseInt(heroChosenItems[6]);
         this.heroRef = new Hero(nameData, classData, levelData, experienceData, attackData, defenceData, hitPointsData);
+        this.selectHeroWindow.dispose();
         
-        JOptionPane.showMessageDialog(null, "Hero Created");
-        this.selectHeroWindow .dispose();
+        GUI.game();
     }
     
 }

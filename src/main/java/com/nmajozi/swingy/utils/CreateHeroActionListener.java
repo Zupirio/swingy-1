@@ -1,6 +1,7 @@
 package com.nmajozi.swingy.utils;
 
 import com.nmajozi.swingy.model.Hero;
+import com.nmajozi.swingy.view.GUI;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -44,8 +45,9 @@ public class CreateHeroActionListener implements ActionListener {
             int defenceData  = Integer.parseInt(String.valueOf(this.defenceInput.getSelectedItem()));
             int hitPointsData  = Integer.parseInt(String.valueOf(this.hitPointsInput.getSelectedItem()));
             this.heroRef = new Hero(nameData, classData, levelData, experienceData, attackData, defenceData, hitPointsData);
-            JOptionPane.showMessageDialog(null, "Hero Created");
+            
             this.createHeroWindow.dispose();
+            GUI.game();
         }
     }
 }
