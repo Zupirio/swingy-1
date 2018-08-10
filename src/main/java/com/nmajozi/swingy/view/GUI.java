@@ -21,23 +21,25 @@ public class GUI implements ViewMode {
     private final String name = "GUI";
     private static Hero hero = new Hero();
 
-    private JFrame window;
+    private static JFrame introWindow;
+    private static JFrame createHeroWindow;
+    private static JFrame selectHeroWindow;
 
     public GUI(){}
 
     public void init(){
         // Window
-        final JFrame introWindow = new JFrame(this.name + " MODE");
-        introWindow.setSize(500, 120);
-        introWindow.setLocationRelativeTo(null);
-        introWindow.setVisible(true);
+        GUI.introWindow = new JFrame(this.name + " MODE");
+        GUI.introWindow.setSize(500, 120);
+        GUI.introWindow.setLocationRelativeTo(null);
+        GUI.introWindow.setVisible(true);
 
         // Buttons & Events
         JButton createHeroButton = new JButton("Create Hero");
         createHeroButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                introWindow.dispose();
+                GUI.introWindow.dispose();
                 GUI.createHero();
             }
         });
@@ -45,7 +47,7 @@ public class GUI implements ViewMode {
         selectHeroButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                introWindow.dispose();
+                GUI.introWindow.dispose();
                 GUI.selectHero();
             }
         });
@@ -54,8 +56,8 @@ public class GUI implements ViewMode {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(createHeroButton);
         buttonPanel.add(selectHeroButton);
-        introWindow.add(buttonPanel, BorderLayout.CENTER);
-        introWindow.pack();
+        GUI.introWindow.add(buttonPanel, BorderLayout.CENTER);
+        GUI.introWindow.pack();
     }
 
     public static void createHero(){
