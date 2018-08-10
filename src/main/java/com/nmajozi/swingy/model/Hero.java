@@ -11,7 +11,21 @@ public class Hero extends Character{
     private int defence;
     private int hitPoints;
     
+    public Hero(){
+
+    }
+
     public Hero(String name, String heroClass, int level, long experience, int attack, int defence, int hitPoints){
+        this.name = name;
+        this.heroClass = heroClass;
+        this.level = level;
+        this.experience = experience;
+        this.attack = attack;
+        this.defence = defence;
+        this.hitPoints = hitPoints;
+    }
+
+    public void setHero(String name, String heroClass, int level, long experience, int attack, int defence, int hitPoints){
         this.name = name;
         this.heroClass = heroClass;
         this.level = level;
