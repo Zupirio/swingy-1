@@ -62,10 +62,10 @@ public class GUI implements ViewMode {
 
     public static void createHero(){
         // Window
-        JFrame introWindow = new JFrame("CREATE HERO");
-        introWindow.setSize(500, 120);
-        introWindow.setLocationRelativeTo(null);
-        introWindow.setVisible(true);
+        GUI.createHeroWindow = new JFrame("CREATE HERO");
+        GUI.createHeroWindow.setSize(500, 120);
+        GUI.createHeroWindow.setLocationRelativeTo(null);
+        GUI.createHeroWindow.setVisible(true);
 
         // Labels & Inputs
         JLabel nameLabel = new JLabel("Enter Name");
@@ -130,8 +130,8 @@ public class GUI implements ViewMode {
 
         mainPanel.add(detailsPanel, BorderLayout.CENTER);
         mainPanel.add(createHeroButton, BorderLayout.SOUTH);
-        introWindow.add(mainPanel);
-        introWindow.pack();
+        GUI.createHeroWindow.add(mainPanel);
+        GUI.createHeroWindow.pack();
     }
 
     public static void selectHero(){
