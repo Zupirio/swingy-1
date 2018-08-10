@@ -1,6 +1,7 @@
 package com.nmajozi.swingy.view;
 
 import com.nmajozi.swingy.utils.CreateHeroActionListener;
+import com.nmajozi.swingy.utils.SelectHeroActionListener;
 import com.nmajozi.swingy.model.Hero;
 import com.nmajozi.swingy.utils.Tools;
 import com.nmajozi.swingy.controller.Map;
@@ -153,12 +154,7 @@ public class GUI implements ViewMode {
 
         // Buttons & Events
         JButton selectHeroButton = new JButton("Select Hero");
-        selectHeroButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                GUI.selectHeroWindow.dispose();
-            }
-        });
+        selectHeroButton.addActionListener(new SelectHeroActionListener(GUI.selectHeroWindow, GUI.hero, heroesOptions));
 
         // Layout
         JPanel mainPanel = new JPanel();
