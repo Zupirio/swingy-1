@@ -2,6 +2,7 @@ package com.nmajozi.swingy.view;
 
 import com.nmajozi.swingy.utils.CreateHeroActionListener;
 import com.nmajozi.swingy.utils.SelectHeroActionListener;
+import com.nmajozi.swingy.utils.NavigationActionListener;
 import com.nmajozi.swingy.model.Hero;
 import com.nmajozi.swingy.utils.Tools;
 import com.nmajozi.swingy.controller.Map;
@@ -10,9 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.util.Vector;
 import java.awt.event.ActionListener; //Interface
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
@@ -95,7 +95,7 @@ public class GUI implements ViewMode {
         // Buttons & Events
         JButton createHeroButton = new JButton("Create Hero");
         createHeroButton.addActionListener(new CreateHeroActionListener(GUI.createHeroWindow, GUI.hero, nameInput, classInput, levelInput, experienceInput, attackInput,defenceInput, hitPointsInput));
-         
+
          // Layout
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -168,7 +168,7 @@ public class GUI implements ViewMode {
     }
 
     public static void game(){
-        Map map = new Map(GUI.hero.getLevel(), GUI.hero);
+        final Map map = new Map(GUI.hero.getLevel(), GUI.hero);
         String move = null;
 
         
@@ -180,32 +180,70 @@ public class GUI implements ViewMode {
         GUI.gameWindow.setVisible(true);
 
         // Components
-        JLabel displayScreen = new JLabel();
-        //JTextField displayScreen = new JTextField();
+        final JTextArea displayScreen = new JTextArea();
+        displayScreen.setEditable(false);
         displayScreen.setText(map.toString());
 
         // Buttons & Events
         JButton upButton = new JButton("UP");
+        upButton.setEnabled(false);
         JButton downButton = new JButton("DOWN");
+        downButton.setEnabled(false);
         JButton leftButton = new JButton("LEFT");
+        leftButton.setEnabled(false);
         JButton rightButton = new JButton("RIGHT");
+        rightButton.setEnabled(false);
+
+        JButton fightButton = new JButton("FIGHT");
+        fightButton.setEnabled(false);
+        JButton runButton = new JButton("RUN");
+        runButton.setEnabled(false);
+
+
+        upButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{upButton, downButton, leftButton, rightButton}, new JButton[]{fightButton, runButton}));
+        downButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{downButton, upButton, leftButton, rightButton}, new JButton[]{fightButton, runButton}));
+        leftButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{leftButton, upButton, downButton, rightButton}, new JButton[]{fightButton, runButton}));
+        rightButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{rightButton, upButton, downButton, leftButton}, new JButton[]{fightButton, runButton}));
+
+
+        
+        //upButton.addActionListener(new NavigationActionListener(map, displayScreen, upButton));
+        
+        //downButton.addActionListener(new NavigationActionListener(map, displayScreen, downButton));
 
         // Layout
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.add(leftButton);
-        buttonsPanel.add(upButton);
-        buttonsPanel.add(downButton);
-        buttonsPanel.add(rightButton);
+        JPanel navigationButtonsPanel = new JPanel();
+        navigationButtonsPanel.add(leftButton);
+        navigationButtonsPanel.add(upButton);
+        navigationButtonsPanel.add(downButton);
+        navigationButtonsPanel.add(rightButton);
+
+        JPanel fightOrFlightButtonsPanel = new JPanel();
+        fightOrFlightButtonsPanel.add(fightButton);
+        fightOrFlightButtonsPanel.add(runButton);
+
 
         
-        mainPanel.add(displayScreen, BorderLayout.NORTH);
-        mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        mainPanel.add(displayScreen);
+        mainPanel.add(navigationButtonsPanel);
+        mainPanel.add(fightOrFlightButtonsPanel);
 
         GUI.gameWindow.add(mainPanel);
         GUI.gameWindow.pack();
+
+        if (map.metVillain()){
+            fightButton.setEnabled(true);
+            runButton.setEnabled(true);
+            JOptionPane.showMessageDialog(null, "You met the following villain(s)\nFight OR Run");
+        } else {
+            upButton.setEnabled(true);
+            downButton.setEnabled(true);
+            leftButton.setEnabled(true);
+            rightButton.setEnabled(true);
+        }
     }
 
     public void run(){

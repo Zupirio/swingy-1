@@ -34,7 +34,8 @@ public class SelectHeroActionListener implements ActionListener {
         int attackData  = Integer.parseInt(heroChosenItems[4]);
         int defenceData  = Integer.parseInt(heroChosenItems[5]);
         int hitPointsData  = Integer.parseInt(heroChosenItems[6]);
-        this.heroRef = new Hero(nameData, classData, levelData, experienceData, attackData, defenceData, hitPointsData);
+        
+        this.heroRef.setHero(nameData, classData, levelData, experienceData, attackData, defenceData, hitPointsData);
         this.selectHeroWindow.dispose();
         
         GUI.game();
