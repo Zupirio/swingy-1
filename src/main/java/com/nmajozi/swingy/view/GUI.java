@@ -3,6 +3,7 @@ package com.nmajozi.swingy.view;
 import com.nmajozi.swingy.utils.CreateHeroActionListener;
 import com.nmajozi.swingy.utils.SelectHeroActionListener;
 import com.nmajozi.swingy.utils.NavigationActionListener;
+import com.nmajozi.swingy.utils.FightOrRunActionListener;
 import com.nmajozi.swingy.model.Hero;
 import com.nmajozi.swingy.utils.Tools;
 import com.nmajozi.swingy.controller.Map;
@@ -22,7 +23,7 @@ import javax.swing.BoxLayout;
 
 public class GUI implements ViewMode {
     private final String name = "GUI";
-    private static Hero hero = new Hero();
+    public static Hero hero = new Hero();
 
     private static JFrame introWindow;
     private static JFrame createHeroWindow;
@@ -193,7 +194,6 @@ public class GUI implements ViewMode {
         leftButton.setEnabled(false);
         JButton rightButton = new JButton("RIGHT");
         rightButton.setEnabled(false);
-
         JButton fightButton = new JButton("FIGHT");
         fightButton.setEnabled(false);
         JButton runButton = new JButton("RUN");
@@ -204,12 +204,8 @@ public class GUI implements ViewMode {
         downButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{downButton, upButton, leftButton, rightButton}, new JButton[]{fightButton, runButton}));
         leftButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{leftButton, upButton, downButton, rightButton}, new JButton[]{fightButton, runButton}));
         rightButton.addActionListener(new NavigationActionListener(map, displayScreen, new JButton[]{rightButton, upButton, downButton, leftButton}, new JButton[]{fightButton, runButton}));
-
-
-        
-        //upButton.addActionListener(new NavigationActionListener(map, displayScreen, upButton));
-        
-        //downButton.addActionListener(new NavigationActionListener(map, displayScreen, downButton));
+        fightButton.addActionListener(new FightOrRunActionListener(map, displayScreen, new JButton[]{fightButton, runButton}, new JButton[]{upButton, downButton, leftButton, rightButton}));
+        runButton.addActionListener(new FightOrRunActionListener(map, displayScreen, new JButton[]{runButton, fightButton}, new JButton[]{upButton, downButton, leftButton, rightButton}));
 
         // Layout
         JPanel mainPanel = new JPanel();

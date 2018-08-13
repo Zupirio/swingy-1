@@ -9,27 +9,26 @@ import javax.swing.JOptionPane;
 
 
 public class NavigationActionListener implements ActionListener {
-    private Map mapRef;
+    private Map map;
     private JTextArea displayScreen;
     private JButton[] navigationButtons;
-    private JButton[] fightOrFlightButtons;
+    private JButton[] fightOrRunButtons;
 
-    public NavigationActionListener(Map map, JTextArea displayScreen, JButton[] navigationButtons, JButton[] fightOrFlightButtons){
-        this.mapRef = map;
+    public NavigationActionListener(Map map, JTextArea displayScreen, JButton[] navigationButtons, JButton[] fightOrRunButtons){
+        this.map = map;
         this.displayScreen = displayScreen;
         this.navigationButtons = navigationButtons;
-        this.fightOrFlightButtons = fightOrFlightButtons;
+        this.fightOrRunButtons = fightOrRunButtons;
     }
 
     public void check(){
-        if (this.mapRef.metVillain()){
+        if (this.map.metVillain()){
             this.navigationButtons[0].setEnabled(false);
             this.navigationButtons[1].setEnabled(false);
             this.navigationButtons[2].setEnabled(false);
             this.navigationButtons[3].setEnabled(false);
-
-            this.fightOrFlightButtons[0].setEnabled(true);
-            this.fightOrFlightButtons[1].setEnabled(true);
+            this.fightOrRunButtons[0].setEnabled(true);
+            this.fightOrRunButtons[1].setEnabled(true);
             JOptionPane.showMessageDialog(null, "You met the following villain(s)\nFight OR Run");
         }
     }
@@ -41,36 +40,36 @@ public class NavigationActionListener implements ActionListener {
 
 
         if (direction.equals("UP")){
-            move = this.mapRef.move("N");
+            move = this.map.move("N");
             if (move.equals("END")){
                 JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
                 System.exit(1);
             }
-            displayScreen.setText(this.mapRef.toString());
+            displayScreen.setText(this.map.toString());
             this.check();
         } else if (direction.equals("DOWN")){
-            move = this.mapRef.move("S");
+            move = this.map.move("S");
             if (move.equals("END")){
                 JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
                 System.exit(1);
             }
-            displayScreen.setText(this.mapRef.toString());
+            displayScreen.setText(this.map.toString());
             this.check();
         } else if (direction.equals("LEFT")){
-            move = this.mapRef.move("W");
+            move = this.map.move("W");
             if (move.equals("END")){
                 JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
                 System.exit(1);
             }
-            displayScreen.setText(this.mapRef.toString());
+            displayScreen.setText(this.map.toString());
             this.check();
         } else if (direction.equals("RIGHT")){
-            move = this.mapRef.move("E");
+            move = this.map.move("E");
             if (move.equals("END")){
                 JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
                 System.exit(1);
             }
-            displayScreen.setText(this.mapRef.toString());
+            displayScreen.setText(this.map.toString());
             this.check();
         }
     }
