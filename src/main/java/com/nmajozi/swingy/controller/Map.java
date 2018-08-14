@@ -26,6 +26,20 @@ public class Map {
         this.createCharacters(hero);
     }
 
+    private void changeMap(){
+        Hero hero = (Hero)this.characters.get(this.heroSymbol);
+        hero.incrementLevel();
+        
+        Map.numberOfCharacters = 0;
+        this.level = hero.getLevel();
+        this.gridSize = this.calculateGridSize(this.level);
+        this.grid = new int[this.gridSize][this.gridSize];
+        this.characters = new HashMap<Integer, Character>();
+
+        this.addHero(hero);
+        //this.addVillains();
+    }
+
     private int calculateGridSize(int level){
         return ((level - 1) * 5 + 10 - (level % 2));
     }
@@ -59,7 +73,7 @@ public class Map {
 
     private void createCharacters(Character hero){
         this.addHero(hero);
-        this.addVillains();
+        //this.addVillains();
     }
 
     public String[] getMetVillainsPosition(){
@@ -281,7 +295,14 @@ public class Map {
     }
 
     public String move(String direction){
-        return this.navigation(direction);
+        String move = this.navigation(direction);
+        if (move.equals("END")){
+            if (this.level < 5){
+                this.changeMap();
+                move = "LEVEL UP";
+            }
+        }
+        return move;
     }
 
     public String toString(){

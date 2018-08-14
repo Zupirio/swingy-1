@@ -175,9 +175,11 @@ public class Console implements ViewMode {
                 System.out.print("YOU\nEnter your move (N - Up, E - Right, W - Left & S - Down): ");
                 move = map.move(sc.nextLine());
                 if (move.equals("END")){
-                    System.out.println("\nGAME\nGame over. You survived.");
+                    System.out.println("\nGAME\nGame ended. You finished the game.");
                     break;
-                }   
+                } else {
+                    System.out.println("\nGAME\nLevel Up. You survived this stage.");
+                }
             }
             System.out.println("\nGAME");
             System.out.println(map.toString());

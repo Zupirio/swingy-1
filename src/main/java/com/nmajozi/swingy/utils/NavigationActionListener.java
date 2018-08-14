@@ -42,32 +42,40 @@ public class NavigationActionListener implements ActionListener {
         if (direction.equals("UP")){
             move = this.map.move("N");
             if (move.equals("END")){
-                JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
+                JOptionPane.showMessageDialog(null, "\nGAME\nGame ended. You finished the game.");
                 System.exit(1);
+            } else if (move.equals("LEVEL UP")){
+                JOptionPane.showMessageDialog(null, "\nGAME\nLevel Up. You survived this stage.");
             }
             displayScreen.setText(this.map.toString());
             this.check();
         } else if (direction.equals("DOWN")){
             move = this.map.move("S");
             if (move.equals("END")){
-                JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
+                JOptionPane.showMessageDialog(null, "\nGAME\nGame ended. You finished the game.");
                 System.exit(1);
+            } else if (move.equals("LEVEL UP")){
+                JOptionPane.showMessageDialog(null, "\nGAME\nLevel Up. You survived this stage.");
             }
             displayScreen.setText(this.map.toString());
             this.check();
         } else if (direction.equals("LEFT")){
             move = this.map.move("W");
             if (move.equals("END")){
-                JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
+                JOptionPane.showMessageDialog(null, "\nGAME\nGame ended. You finished the game.");
                 System.exit(1);
+            } else if (move.equals("LEVEL UP")){
+                JOptionPane.showMessageDialog(null, "\nGAME\nLevel Up. You survived this stage.");
             }
             displayScreen.setText(this.map.toString());
             this.check();
         } else if (direction.equals("RIGHT")){
             move = this.map.move("E");
             if (move.equals("END")){
-                JOptionPane.showMessageDialog(null, "\nGAME\nGame over. You survived.");
+                JOptionPane.showMessageDialog(null, "\nGAME\nGame ended. You finished the game.");
                 System.exit(1);
+            } else if (move.equals("LEVEL UP")){
+                JOptionPane.showMessageDialog(null, "\nGAME\nLevel Up. You survived this stage.");
             }
             displayScreen.setText(this.map.toString());
             this.check();

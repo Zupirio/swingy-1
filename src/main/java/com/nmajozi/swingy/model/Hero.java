@@ -67,6 +67,10 @@ public class Hero extends Character{
         return this.hitPoints;
     }
 
+    public void incrementLevel(){
+        this.level++;
+    }
+
     public int getLevel(){
         return this.level;
     }
