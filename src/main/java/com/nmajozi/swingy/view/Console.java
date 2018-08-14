@@ -62,8 +62,8 @@ public class Console implements ViewMode {
             
             System.out.print("Enter Level (Integer between 1 - 5): ");
             level = sc.nextInt();
-            if ((level < 1) || (5 < level))
-                throw new Exception();
+            // if ((level < 1) || (5 < level))
+            //     throw new Exception();
             sc.nextLine(); // Moving Cursor
             
             System.out.print("Enter Experience (Integer): ");

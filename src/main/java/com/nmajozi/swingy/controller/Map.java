@@ -37,7 +37,7 @@ public class Map {
         this.characters = new HashMap<Integer, Character>();
 
         this.addHero(hero);
-        //this.addVillains();
+        this.addVillains();
     }
 
     private int calculateGridSize(int level){
@@ -73,7 +73,7 @@ public class Map {
 
     private void createCharacters(Character hero){
         this.addHero(hero);
-        //this.addVillains();
+        this.addVillains();
     }
 
     public String[] getMetVillainsPosition(){

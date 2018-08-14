@@ -1,18 +1,41 @@
 package com.nmajozi.swingy.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.validation.ValidatorFactory;
+import javax.validation.Validator;
+import javax.validation.Validation;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+
 public class Hero extends Character{
     public static final String FILENAME = "heroes.txt";
+    
     private Position previousPosition = null;
+    @NotNull(message = "Name cannot be null")
     private String name = null;
+    @NotNull(message = "Class cannot be null")
     private String heroClass = null;
+    @Size(min = 1, max = 5, message = "Level length should not be less than 1 or greater than 5")
     private int level;
     private long experience;
     private int attack;
     private int defence;
     private int hitPoints;
+
+    private ValidatorFactory factory;
+    private Validator validator;
+    private Set<ConstraintViolation<Hero>> violations;
     
     public Hero(){
-
+        this.factory = Validation.buildDefaultValidatorFactory();
+        this.validator = factory.getValidator();
+        this.violations = validator.validate(this);
+        for (ConstraintViolation<Hero> violation : this.violations) {
+            System.out.println(violation.getMessage()); 
+        }
     }
 
     public Hero(String name, String heroClass, int level, long experience, int attack, int defence, int hitPoints){
@@ -23,6 +46,20 @@ public class Hero extends Character{
         this.attack = attack;
         this.defence = defence;
         this.hitPoints = hitPoints;
+
+        // ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        // Validator validator = factory.getValidator();
+        // Set<ConstraintViolation<Hero>> violations = validator.validate(this);
+        // for (ConstraintViolation<Hero> violation : violations) {
+        //     System.out.println(violation.getMessage()); 
+        // }
+
+        this.factory = Validation.buildDefaultValidatorFactory();
+        this.validator = factory.getValidator();
+        this.violations = validator.validate(this);
+        for (ConstraintViolation<Hero> violation : this.violations) {
+            System.out.println(violation.getMessage()); 
+        }
     }
 
     public void setHero(String name, String heroClass, int level, long experience, int attack, int defence, int hitPoints){
