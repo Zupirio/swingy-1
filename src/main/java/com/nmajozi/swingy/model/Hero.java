@@ -10,32 +10,47 @@ import javax.validation.Validation;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 
+import org.hibernate.validator.constraints.*;
+import javax.validation.constraints.*;
+
 public class Hero extends Character{
     public static final String FILENAME = "heroes.txt";
     
     private Position previousPosition = null;
     @NotNull(message = "Name cannot be null")
+    @Length(min=2, max= 7, message= "Name length should not be less than 1 or greater than 7" )
     private String name = null;
     @NotNull(message = "Class cannot be null")
+    @Length(min=2, max= 7, message= "Class length should not be less than 1 or greater than 7" )
     private String heroClass = null;
-    @Size(min = 1, max = 5, message = "Level length should not be less than 1 or greater than 5")
+    @Digits(integer=5, fraction=0, message="The value of heroClass cannot be more than 5 digits")
+	@Min(value=0, message="Min value of heroClass cannot be less than 0")
+	@Max(value=100, message="Max value of heroClass cannot be more than 100")
     private int level;
+    @Digits(integer=5, fraction=0, message="The value of level cannot be more than 3 digits")
+	@Min(value=0, message="Min value of level cannot be less than 0")
     private long experience;
+    @Digits(integer=5, fraction=0, message="The value of experience cannot be more than 3 digits")
+	@Min(value=0, message="Min value of experience cannot be less than 0")
     private int attack;
+    @Digits(integer=5, fraction=0, message="The value of level cannot be more than 3 digits")
+	@Min(value=0, message="Min value of level cannot be less than 0")
     private int defence;
+    @Digits(integer=5, fraction=0, message="The value of attack cannot be more than 3 digits")
+	@Min(value=0, message="Min value of attack cannot be less than 0")
     private int hitPoints;
 
     private ValidatorFactory factory;
     private Validator validator;
     private Set<ConstraintViolation<Hero>> violations;
     
-    public Hero(){
-        this.factory = Validation.buildDefaultValidatorFactory();
-        this.validator = factory.getValidator();
-        this.violations = validator.validate(this);
-        for (ConstraintViolation<Hero> violation : this.violations) {
-            System.out.println(violation.getMessage()); 
-        }
+     public Hero(){
+    //     this.factory = Validation.buildDefaultValidatorFactory();
+    //     this.validator = factory.getValidator();
+    //     this.violations = validator.validate(this);
+    //     for (ConstraintViolation<Hero> violation : this.violations) {
+    //         System.out.println(violation.getMessage()); 
+    //     }
     }
 
     public Hero(String name, String heroClass, int level, long experience, int attack, int defence, int hitPoints){
@@ -47,19 +62,9 @@ public class Hero extends Character{
         this.defence = defence;
         this.hitPoints = hitPoints;
 
-        // ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        // Validator validator = factory.getValidator();
-        // Set<ConstraintViolation<Hero>> violations = validator.validate(this);
-        // for (ConstraintViolation<Hero> violation : violations) {
-        //     System.out.println(violation.getMessage()); 
-        // }
+        
 
-        this.factory = Validation.buildDefaultValidatorFactory();
-        this.validator = factory.getValidator();
-        this.violations = validator.validate(this);
-        for (ConstraintViolation<Hero> violation : this.violations) {
-            System.out.println(violation.getMessage()); 
-        }
+        
     }
 
     public void setHero(String name, String heroClass, int level, long experience, int attack, int defence, int hitPoints){
@@ -70,6 +75,13 @@ public class Hero extends Character{
         this.attack = attack;
         this.defence = defence;
         this.hitPoints = hitPoints;
+
+        /*this.factory = Validation.buildDefaultValidatorFactory();
+        this.validator = factory.getValidator();
+        this.violations = validator.validate(this);
+        for (ConstraintViolation<Hero> violation : this.violations) {
+            System.out.println(violation.getMessage()); 
+        }*/
     }
 
     public String heroStats(){
@@ -139,7 +151,7 @@ public class Hero extends Character{
     public String toString(){
         String results = null;
 
-        results = String.format("%s,%s,%s,%d,%d,%d,%d", this.name, this.heroClass, this.level, this.experience, this.attack, this.defence, this.hitPoints);
+        results = String.format("%s,%s,%d,%d,%d,%d,%d", this.name, this.heroClass, this.level, this.experience, this.attack, this.defence, this.hitPoints);
         return results;
     }
 }

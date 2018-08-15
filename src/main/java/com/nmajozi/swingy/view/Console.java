@@ -3,13 +3,27 @@ package com.nmajozi.swingy.view;
 import com.nmajozi.swingy.model.Hero;
 import com.nmajozi.swingy.utils.Tools;
 import com.nmajozi.swingy.controller.Map;
+
+import com.nmajozi.swingy.view.ViewMode;
+//import com.nmajozi.swingy.view.Console;
+import com.nmajozi.swingy.view.GUI;
+import com.nmajozi.swingy.utils.Tools;
+
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import javax.validation.ValidatorFactory;
+import javax.validation.Validator;
+import javax.validation.Validation;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+
 public class Console implements ViewMode {
     private final String name = "Console";
     private Hero hero = null;
+    private String gameMode = null;
+    private ViewMode view = null;
 
     public Console(){
         System.out.printf("%s MODE\n", this.name);
@@ -39,6 +53,18 @@ public class Console implements ViewMode {
             else if (input == 2)
                 this.selectHero(sc);
         }
+    }
+
+    private boolean isOkay() {
+        boolean successful = true;
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Hero>> violations = validator.validate(this.hero);
+        for (ConstraintViolation<Hero> violation : violations) {
+            successful = false;
+            System.out.println(violation.getMessage()); 
+        }
+        return (successful);
     }
 
     public void createHero(Scanner sc){
@@ -82,13 +108,19 @@ public class Console implements ViewMode {
             hitPoints = sc.nextInt();
 
             this.hero = new Hero(name, heroClass, level, experience, attack, defence, hitPoints);
+            if (!this.isOkay()) {
+                this.gameMode = "CONSOLE";
+                System.out.println("GAME");
+                this.view = new Console();
+                this.view.run();
+            }
         } catch (NoSuchElementException e){
             System.out.println("\n\nERROR\nWrong input data type");
             if (sc != null)
                 sc.close();
             System.exit(1);
         } catch (Exception e){
-            System.out.println("\n\nERROR\nInput should be between 1 - 5");
+            System.out.println("\n\nERROR\nInput should be between 1 - 5 :: " + e.getMessage());
             if (sc != null)
                 sc.close();
             System.exit(1);
